@@ -12,7 +12,7 @@ def is_matching_number():
 	#print(rand_num)
 
 	guesses = 0
-	guess = input("Pick a number between " + str(a) + " and " + str(b) + ".")
+	guess = input("Pick a number between " + str(a) + " and " + str(b) + ". ")
 
 	while True:
 		guesses += 1
