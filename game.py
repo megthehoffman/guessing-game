@@ -3,6 +3,12 @@
 # Put your code here
 from random import randint
 
+def calculate_score(guesses,a,b):
+	converted_score = int((10-guesses)/(10/(b-a)))
+	print("Your score is " + str(converted_score) + ".")
+
+	return converted_score
+
 def is_matching_number():
 	""" Play game to guess matching number"""
 	a = int(input("You are going to guess an integer in a range, but you get to pick the range! What would you like the lower bound to be? "))
@@ -19,7 +25,7 @@ def is_matching_number():
 		try:
 			guess = int(guess)	
 			if guess == rand_num:
-				game_won = True
+				print("Well done, " + name + "! It only took you " + str(guesses) + " tries!")
 				break
 			elif guess > b or guess < a:
 				print("You fool, we asked for a number between " + str(a) + " and " + str(b) + ". Try again. ")
@@ -29,46 +35,43 @@ def is_matching_number():
 				print ("Your guess is too low, try again.")	
 		except:
 			print("Please input a valid integer.")
-		
-		
 
 		if guesses >= 10:
-			print("Too many tries! Game over. Your score is 0.")
-			game_won = False
+			print("Too many tries! Game over.")
 			break
 
 		print("You have " + str(10-guesses) + " remaining.")
 		guess = input("Your guess? ")
 
-	if game_won == True:
-		print("Well done, " + name + "! It only took you " + str(guesses) + " tries!")
-		converted_score = int(guesses/(10/(b-a)))
-		print("Your score is " + str(converted_score) + ".")
-	else:
-		converted_score = 0
+	return calculate_score(guesses,a,b)
 
-	return converted_score
+def play_again(first_score):
+	best_score = first_score
+	while True:
+		play_again = input("Do you want to play again? Enter Y or N. ")
+		play_again = play_again.lower()
+
+		if play_again == 'y':
+			score = is_matching_number()
+			if score > best_score:
+				best_score = score
+				print("New high score, " + name + "! Your score is " + str(best_score) + " points.")
+		elif play_again == 'n':
+			break
+		else:
+			print("Please enter valid input.")
+	return best_score
+
 
 print("Hello player!")
 name = input("What is your name? ")
 
-best_score = is_matching_number()
+first_score = is_matching_number()
+final_score = play_again(first_score)
+print("Thanks for playing, " + name + "! Your best score was " + str(final_score) + " points.")
 
-while True:
-	play_again = input("Do you want to play again? Enter Y or N. ")
-	play_again = play_again.lower()
 
-	if play_again == 'y':
-		score = is_matching_number()
-		if score > best_score:
-			best_score = score
-			print("New high score, " + name + "! Your score is " + str(best_score) + " points.")
-	elif play_again == 'n':
-		break
-	else:
-		print("Please enter valid input.")
 
-print("Thanks for playing, " + name + "! Your best score was " + str(best_score) + " points.")
 
 
 
